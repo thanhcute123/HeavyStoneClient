@@ -1,0 +1,35 @@
+.uppost-title {
+    margin-left: 470px;
+    margin-right: 470px;
+    font-size: 18px;
+}
+.uppost-textarea {
+    border: none ;
+    width: 100%;
+    resize: none;
+    margin-left: 8px;
+    margin-top: 12px;
+
+}
+
+.uppost-textarea:focus {
+
+   outline: none;
+}
+.input-file {
+    /*display: none;*/
+}
+.font-icon {
+    font-size: 22px;
+    color: #055e73;
+}
+.filter-option {
+    margin: 5px;
+}
+.button-uppost {
+    background-color: #055e73;
+}
+.button-uppost:hover {
+    background-color: #055e73;
+}
+

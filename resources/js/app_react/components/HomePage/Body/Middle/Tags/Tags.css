@@ -1,0 +1,45 @@
+.tag-button {
+    display: flex;
+    width: 100px;
+    height: 50px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    border-radius: 25px;
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+.link {
+    color: white;
+    text-decoration: none;
+}
+
+.link:hover {
+    color: white;
+    text-decoration: none;
+}
+
+.tag-one {
+    margin-left: 0px;
+    background: rgb(131,58,180);
+    background: linear-gradient(157deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);
+}
+
+.tag-two {
+    background: rgb(34,193,195);
+    background: linear-gradient(29deg, rgba(34,193,195,1) 0%, rgba(61,45,253,1) 100%);
+}
+
+.tag-three {
+    background-image: linear-gradient(to right top, #23b93f, #5ec038, #84c635, #a5cb36, #c3d03c, #d2ce38, #e0cc36, #eec937, #f2bf29, #f7b51c, #fbaa0d, #ff9e00);
+}
+
+.tag-four {
+    background-image: linear-gradient(to right top, #aed16b, #92d078, #78cd87, #5dc996, #44c4a4, #3ec8a6, #37cba9, #2ecfab, #4cdc9e, #70e88c, #97f377, #c1fb5f);
+}
+
+.tag-five {
+    background-image: linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);
+}

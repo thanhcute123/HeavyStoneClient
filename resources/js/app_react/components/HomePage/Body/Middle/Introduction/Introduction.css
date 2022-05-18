@@ -1,0 +1,14 @@
+.introduction{
+    border-bottom: 2px solid #e5e5e5;
+}
+.introduction-title {
+    font-size: 2.5rem;
+    font-weight: 500;
+}
+
+.introduction-logo {
+    margin-left: 250px;
+}
+.introduction-content {
+    text-align: justify;
+}

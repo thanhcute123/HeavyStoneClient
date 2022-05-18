@@ -1,0 +1,65 @@
+
+.header {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    background-color: white;
+    z-index: 1;
+}
+.header-input:focus {
+    outline: none;
+}
+.header-input {
+    border: none;
+    height: 35px;
+    text-indent: 10px;
+}
+
+.header-btn-search {
+    font-size: 20px;
+    border: none;
+    margin-right: 10px;
+    background-color: white;
+    color: #055e73;
+}
+
+.header-search {
+    border-radius: 40px;
+    border: 1px solid gray;
+}
+
+.header-logo{
+    cursor: pointer;
+}
+
+.user-name {
+    text-align: center;
+}
+.usename-bold {
+    font-weight: 500;
+}
+.dropdown {
+    background-color: white;
+    border: none;
+    color: black;
+}
+.dropdown:hover {
+    background-color: white;
+    border: none;
+    color: black;
+}
+.btn:focus {
+    /*background-color: white;*/
+    /*color: black;*/
+    outline: none !important;
+    box-shadow: none !important;
+
+}
+.btn-primary:focus {
+    outline: none !important;
+}
+.show>.btn-primary.dropdown-toggle {
+    color: black !important;
+    background-color: white;
+    border: none !important;
+}

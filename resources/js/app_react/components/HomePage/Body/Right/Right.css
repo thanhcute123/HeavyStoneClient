@@ -1,0 +1,30 @@
+.right {
+    margin-top: 82px;
+    position: fixed;
+    right: 0;
+    margin-right: 60px;
+    overflow-y: scroll;
+    top: 0;
+    bottom: 0;
+}
+
+.notification {
+    padding: 10px;
+}
+
+.notification-hot {
+    text-align: center;
+    font-size: larger;
+    border-bottom: 1px solid lightgrey;
+    font-weight: bolder;
+    color: #e06161;
+}
+.text-footer {
+    /*margin-left: -10px;*/
+}
+.button-mess:focus {
+   border: none !important;
+}
+.button-mess:focus {
+    outline: none !important;
+}

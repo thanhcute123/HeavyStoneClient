@@ -1,0 +1,10 @@
+.button-up {
+    border: none;
+    background-color: white;
+    font-size: 30px;
+}
+
+.bottom-up {
+    display: flex;
+    flex-direction: column;
+}

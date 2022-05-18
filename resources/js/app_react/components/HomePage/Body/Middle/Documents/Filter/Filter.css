@@ -1,0 +1,19 @@
+.filter {
+    margin-top: 20px;
+}
+
+.filter-option {
+    margin-right: 10px;
+}
+
+.filter-option select {
+    padding: 5px;
+}
+
+.filter-button {
+    border: none;
+    color: white;
+    border-radius: 10px;
+    padding: 5px;
+    background-color: #055e73;
+}
