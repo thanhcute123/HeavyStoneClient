@@ -7,8 +7,8 @@ const Club = () => {
   return(
       <div>
           {/*<CombineClub/>*/}
-          {/*<SeparateClub/>*/}
-          <NonClub/>
+          <SeparateClub/>
+          {/*<NonClub/>*/}
       </div>
   )
 }

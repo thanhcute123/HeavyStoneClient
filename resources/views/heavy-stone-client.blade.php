@@ -8,6 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>HeavyStone</title>
     <link rel='icon' href='favicon.ico' type='image/x-icon'>
+    <link rel="stylesheet" href="public/ionicons/css/ionicons.min.css">
 </head>
 <body>
 <div id="application"></div>

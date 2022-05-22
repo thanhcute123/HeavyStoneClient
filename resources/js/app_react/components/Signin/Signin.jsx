@@ -88,7 +88,7 @@ const Signin = () => {
                                             </div>
                                             <div className="direct-chat-msg rights">
                                                 <div className="direct-chat-info clearfix">
-                                                    <span className="direct-chat-name pull-right">Vũ Thu Thanh</span>
+                                                    {/*<span className="direct-chat-name pull-right">Vũ Thu Thanh</span>*/}
                                                     <span
                                                         className="direct-chat-timestamp pull-left">23 Jan 2:05 pm</span>
                                                 </div>

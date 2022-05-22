@@ -26,7 +26,11 @@
     "dependencies": {
         "@fortawesome/free-solid-svg-icons": "^6.1.1",
         "@fortawesome/react-fontawesome": "^0.1.18",
+        "@ionic/react": "^6.1.6",
         "antd": "^4.20.4",
+        "ionicons": "^6.0.1",
+        "jquery": "^3.6.0",
+        "moment": "^2.29.3",
         "react-bootstrap": "^2.4.0",
         "react-router-dom": "^6.3.0"
     }

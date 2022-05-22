@@ -18,6 +18,10 @@ ul,
 nav {
     list-style: none;
 }
+.navs {
+    background-color: rgba(182, 182, 182, 0.5) !important;
+    /*opacity: 0.5 !important;*/
+}
 
 a {
     text-decoration: none;
@@ -38,6 +42,7 @@ a.btn {
     opacity: 1;
     transition: all 400ms;
 }
+
 
 a.btn:hover {
     background-color: #ce5856;
@@ -232,8 +237,9 @@ header nav li {
     /*box-shadow: 10px 5px 5px rgba(100, 100, 100, 0.33);*/
 }
 .btn-color {
-    background-color: black !important;
+    background-color: #4b4949 !important;
     color: white !important;
+    opacity: 1 !important;
 }
 .sub-title {
     text-align: center;

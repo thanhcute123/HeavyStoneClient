@@ -16,10 +16,10 @@ function App( props ){
             {/*        <Route path="/about" component={ AboutPage } />*/}
             {/*    </Switch>*/}
             {/*</BrowserRouter>*/}
-            {/*<HomIntro/>*/}
+            <HomIntro/>
             {/*<Signin/>*/}
             {/*<Profile/>*/}
-            <HomePage/>
+            {/*<HomePage/>*/}
         </div>
     )
 }

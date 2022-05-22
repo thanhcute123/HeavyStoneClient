@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Modal, Button } from "react-bootstrap";
+import axios from "axios";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faFileImage, faSearch} from '@fortawesome/free-solid-svg-icons';
 import { faFile } from "@fortawesome/free-solid-svg-icons";
@@ -12,127 +13,173 @@ const UpPost = () => {
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-    return (
-        <div className="mt-4">
-            <Modal show={show} onHide={handleClose}
-                   size="xl"
-                   aria-labelledby="contained-modal-title-vcenter"
-                   centered
-            >
-                <Modal.Header closeButton>
-                    <Modal.Title>
-                        <div className="uppost-title">Tạo bài viết</div>
-                    </Modal.Title>
-                </Modal.Header>
-                <div className="d-flex justify-content-around">
-                    <div className="col-lg-8 border-end">
 
-                        <Modal.Body>
-                            <div className="d-flex align-items-center">
-                                <div >
-                                    <img className="rounded-circle" width="45px" src={avt_user}/>
+    const [faculty, setFaculty] = useState([]);
+    const [error, setError] = useState(null);
+    const [isLoaded, setIsLoaded] = useState(false);
+
+    const getDataFaculty = () => {
+        axios.get("http://127.0.0.1:8000/api/department/getAll")
+            .then(res => res.data)
+            .then(
+                (result) => {
+                    console.log("faculty----", result);
+                    setIsLoaded(true);
+                    setFaculty(result);
+
+                    // console.log("items---", items);
+                },
+
+                (error) => {
+                    setIsLoaded(true);
+                    setError(error);
+                }
+            )
+    }
+
+    useEffect(() => {
+        getDataFaculty();
+    }, [])
+
+
+    if (error) {
+        return <div>Error: {error.message}</div>;
+    } else if (!isLoaded) {
+        return <div>Loading...</div>;
+    } else {
+        return (
+            <div className="mt-4">
+                <Modal show={show} onHide={handleClose}
+                       size="xl"
+                       aria-labelledby="contained-modal-title-vcenter"
+                       centered
+                >
+                    <Modal.Header closeButton>
+                        <Modal.Title>
+                            <div className="uppost-title">Tạo bài viết</div>
+                        </Modal.Title>
+                    </Modal.Header>
+                    <div className="d-flex justify-content-around">
+                        <div className="col-lg-8 border-end">
+
+                            <Modal.Body>
+                                <div className="d-flex align-items-center">
+                                    <div >
+                                        <img className="rounded-circle" width="45px" src={avt_user}/>
+                                    </div>
+                                    <div>
+                                        Vũ Thu Thanh
+                                    </div>
                                 </div>
                                 <div>
-                                    Vũ Thu Thanh
-                                </div>
-                            </div>
-                            <div>
-                                <form>
-                                    <textarea className="uppost-textarea" placeholder="Thu Thanh, hãy cùng chia sẻ nào!" rows="7"></textarea>
-                                </form>
-                            </div>
-                            <div className="border shadow-sm mt-5 p-3 rounded-3 d-flex justify-content-between">
-                                <div>Thêm vào bài viết</div>
-                                <div className="">
                                     <form>
-                                        <input id="file-input" className="input-file" type="file"/>
+                                        <textarea className="uppost-textarea" placeholder="Thu Thanh, hãy cùng chia sẻ nào!" rows="7"></textarea>
                                     </form>
                                 </div>
-                            </div>
-                        </Modal.Body>
-                        <Modal.Footer>
-                            <Button className="w-100 button-uppost" onClick={handleClose}>
-                                Đăng
-                            </Button>
-                        </Modal.Footer>
-                    </div>
-                    <div className="col-lg-4">
+                                <div className="border shadow-sm mt-5 p-3 rounded-3 d-flex justify-content-between">
+                                    <div>Thêm vào bài viết</div>
+                                    <div className="">
+                                        <form>
+                                            <input id="file-input" className="input-file" type="file"/>
+                                        </form>
+                                    </div>
+                                </div>
+                            </Modal.Body>
+                            <Modal.Footer>
+                                <Button className="w-100 button-uppost" onClick={handleClose}>
+                                    Đăng
+                                </Button>
+                            </Modal.Footer>
+                        </div>
+                        <div className="col-lg-4">
 
-                        <Modal.Body>
-                            <div className="d-flex align-items-center">
-                                <div>
-                                   <FontAwesomeIcon className="font-icon border-end me-1 p-1" icon={faTags}/>
+                            <Modal.Body>
+                                <div className="d-flex align-items-center">
+                                    <div>
+                                        <FontAwesomeIcon className="font-icon border-end me-1 p-1" icon={faTags}/>
+                                    </div>
+                                    <div>
+                                        Bài viết thuộc chủ đề?
+                                    </div>
+
                                 </div>
                                 <div>
-                                    Bài viết thuộc chủ đề?
+                                    <div className="filter">
+                                        <div className="filter-option">
+
+                                            <select className="form-control" aria-label="Default select example" onChange={(e) => {
+
+                                            }}>
+                                                <option selected>Khoa</option>
+                                                {faculty.map(faculty => (
+                                                    <option value={faculty.id_department}>{faculty.name_department}</option>
+                                                ))}
+
+
+                                            </select>
+                                            {/*<select>*/}
+                                            {/*    <option>Khoa</option>*/}
+                                            {/*    {faculty.map((faculty, idx)=>(*/}
+                                            {/*        <option key={idx} value={faculty.name_department}>{faculty.name_departmen}</option>*/}
+                                            {/*    ))}*/}
+
+
+
+
+                                            {/*</select>*/}
+                                        </div>
+                                        {/*<div className="col-lg-1"></div>*/}
+                                        <div className="filter-option">
+                                            <select>
+                                                <option>Ngành</option>
+                                                <option>Máy tính và Khoa học thông tin</option>
+                                            </select>
+                                        </div>
+                                        {/*<div className="col-lg-1"></div>*/}
+                                        <div className="filter-option">
+                                            <select>
+                                                <option>Bộ môn</option>
+                                            </select>
+                                        </div>
+                                        <div className="filter-option">
+                                            <select>
+                                                <option>Câu lạc bộ</option>
+
+                                            </select>
+                                        </div>
+                                        {/*<div className="col-lg-1"></div>*/}
+                                    </div>
+
                                 </div>
+                            </Modal.Body>
 
-                            </div>
-                            <div>
-                                <div className="filter">
-                                    <div className="filter-option">
-                                        <select>
-                                            <option>Khoa</option>
-                                            <option>Toán - Cơ - Học</option>
-                                            <option>Vật lý</option>
-                                            <option>Hóa học</option>
-                                            <option>Sinh học</option>
-                                            <option>Địa lý</option>
-                                            <option>Địa chất</option>
-                                            <option>Môi trường</option>
-                                            <option>Khí tượng Thủy văn và Hải dương học</option>
-
-                                        </select>
-                                    </div>
-                                    {/*<div className="col-lg-1"></div>*/}
-                                    <div className="filter-option">
-                                        <select>
-                                            <option>Ngành</option>
-                                            <option>Máy tính và Khoa học thông tin</option>
-                                        </select>
-                                    </div>
-                                    {/*<div className="col-lg-1"></div>*/}
-                                    <div className="filter-option">
-                                        <select>
-                                            <option>Bộ môn</option>
-                                        </select>
-                                    </div>
-                                    <div className="filter-option">
-                                        <select>
-                                            <option>Câu lạc bộ</option>
-
-                                        </select>
-                                    </div>
-                                    {/*<div className="col-lg-1"></div>*/}
-                                </div>
-
-                            </div>
-                        </Modal.Body>
+                        </div>
 
                     </div>
+                    {/*<Modal.Footer>*/}
+                    {/*    <Button variant="secondary" onClick={handleClose}>*/}
+                    {/*        Đăng*/}
+                    {/*    </Button>*/}
+                    {/*</Modal.Footer>*/}
 
-                </div>
-                {/*<Modal.Footer>*/}
-                {/*    <Button variant="secondary" onClick={handleClose}>*/}
-                {/*        Đăng*/}
-                {/*    </Button>*/}
-                {/*</Modal.Footer>*/}
-
-            </Modal>
-            <div className="border shadow-sm mt-5 p-3 rounded-3">
-                <div className="d-flex justify-content-center border-bottom p-3 ">
-                    <div>
-                        <img className="rounded-circle" width="40px" src={avt_user}/>
-                    </div>
-                    <div className="comment-border rounded-pill">
-                        <form>
-                            <input readOnly onClick={handleShow} className="comment-input" type="text" size="85" placeholder="Cùng nhau chia sẻ nào!"/>
-                        </form>
+                </Modal>
+                <div className="border shadow-sm mt-5 p-3 rounded-3">
+                    <div className="d-flex justify-content-center border-bottom p-3 ">
+                        <div>
+                            <img className="rounded-circle" width="40px" src={avt_user}/>
+                        </div>
+                        <div className="comment-border rounded-pill">
+                            <form>
+                                <input readOnly onClick={handleShow} className="comment-input" type="text" size="85" placeholder="Cùng nhau chia sẻ nào!"/>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    )
+        )
+    }
+
+
 }
 
 export default UpPost;
