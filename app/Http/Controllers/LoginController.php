@@ -31,12 +31,12 @@ class LoginController extends Controller
             ->where("password", md5($request->password))
             ->where('role', '=', '0')->get();
         if ($validator->fails()) {
-            return Response()->json(array("status" => false,"error" => $errors));
+            return Response()->json(array("status" => false,"error" => $errors), '401');
         } else {
             if ($user->count() > 0) {
                 return Response()->json(array("status" => true, "data" => $user[0]));
             }
-            return response()->json(array("status" => false, "error" => "Email hoặc mật khẩu không đúng!"));
+            return response()->json(array("status" => false, "error" => "Email hoặc mật khẩu không đúng!"), '401');
         }
     }
 }

@@ -50,7 +50,7 @@ const Signin = () => {
             .catch(function (error) {
                 return new Promise((done) => {
                     if (error.response) {
-                        console.log("errrro---", error.response);
+                        console.log("errrro---", error.response.data.error);
                         setErrors(error.response.data.error);
                         if(done)
                             done(errors)
@@ -76,8 +76,8 @@ const Signin = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
         adminSignin();
-        // navigate('/home');
-        // window.location.reload();
+        navigate('/home');
+        window.location.reload();
     }
     return (
         <div className="w-100 d-flex justify-content-center align-items-center signin">

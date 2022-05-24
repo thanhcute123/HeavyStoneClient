@@ -9,15 +9,57 @@ import avt_user from "../../../../../../img/Logo/212d12e421963f8a66f95aece118206
 import "./UpPost.css";
 
 const UpPost = () => {
+
+    let session = JSON.parse(sessionStorage.getItem('user_login'));
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
     const [faculty, setFaculty] = useState([]);
+    const [majors, setMajors] = useState([]);
+    const [users, setUsers] = useState([]);
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
+    const [id_faculty, setId_Faculty] = useState('')
+    const [formCreatePost, setFormCreatePort] = useState({
+        id_user: '',
+        theme: '',
+        content: '',
+        faculty: '',
+        major: ''
 
+    })
+
+    const set_Id_Faculty = (e) => {
+        setId_Faculty(e.target.value);
+        console.log("id---", id_faculty);
+    }
+
+    const  updateField = (e, key) => {
+        formCreatePost[key] = e.target.value;
+        setFormCreatePort({...formCreatePost});
+        console.log(formCreatePost);
+    }
+
+    const getDataMajors = () => {
+        axios.get("http://127.0.0.1:8080/api/major/getAll")
+            .then(res => res.data)
+            .then(
+                (result) => {
+                    console.log("majors----", result);
+                    setIsLoaded(true);
+                    setMajors(result);
+
+                    // console.log("items---", items);
+                },
+
+                (error) => {
+                    setIsLoaded(true);
+                    setError(error);
+                }
+            )
+    }
     const getDataFaculty = () => {
         axios.get("http://127.0.0.1:8080/api/department/getAll")
             .then(res => res.data)
@@ -36,9 +78,74 @@ const UpPost = () => {
                 }
             )
     }
+    const getDataUsers = () => {
+        setIsLoaded(true);
+        axios.get("http://127.0.0.1:8080/api/user/getAll")
+            .then(res => res.data)
+            .then(
+                (result) => {
+                    console.log("datauser----", result);
+                    setIsLoaded(true);
+                    setUsers(result);
+
+                    // console.log("items---", items);
+                },
+
+                (error) => {
+                    setIsLoaded(true);
+                    setError(error);
+                }
+            )
+    }
+
+    const test = () => {
+    }
+    test()
+
+    const doInserPort = () => {
+        const postData = formCreatePost;
+        console.log("postData---", formCreatePost);
+        let name_faculty = ''
+        for (const i in faculty) {
+           if(faculty[i].id_department === formCreatePost.faculty) {
+               name_faculty = faculty[i].name_department;
+           }
+        }
+
+        axios.post("http://127.0.0.1:8000/api/post/create",{
+            id_user: session.id_user,
+            theme: formCreatePost.theme,
+            content: formCreatePost.content,
+            faculty: name_faculty,
+            major: formCreatePost.major
+            // postData
+        })
+            .then(res => {
+                const resetModal = {
+                    id_user: '',
+                    theme: '',
+                    content: '',
+                    faculty: '',
+                    major: ''
+                }
+
+                setFormCreatePort(resetModal);
+                // getDataUserApi()
+            })
+
+    }
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        doInserPort();
+
+
+    }
 
     useEffect(() => {
         getDataFaculty();
+        getDataMajors();
+        getDataUsers();
     }, [])
 
 
@@ -63,17 +170,27 @@ const UpPost = () => {
                         <div className="col-lg-8 border-end">
 
                             <Modal.Body>
-                                <div className="d-flex align-items-center">
-                                    <div >
-                                        <img className="rounded-circle" width="45px" src={avt_user}/>
+                                { users.map((user, idx) => (
+                                    user.id_user === session.id_user &&
+                                    <div key={idx} className="d-flex align-items-center">
+
+                                        <div >
+                                            <img className="rounded-circle" width="45px" src={avt_user}/>
+                                        </div>
+                                        <div>
+                                            {user.username}
+                                        </div>
                                     </div>
-                                    <div>
-                                        Vũ Thu Thanh
-                                    </div>
-                                </div>
+                                ))}
+
                                 <div>
                                     <form>
-                                        <textarea className="uppost-textarea" placeholder="Thu Thanh, hãy cùng chia sẻ nào!" rows="7"></textarea>
+                                        <textarea className="uppost-textarea" placeholder="Chủ đề bài viết là gì nhỉ?" rows="1" value={formCreatePost.theme} onChange={(e) => {
+                                            updateField(e, 'theme')
+                                        }}></textarea>
+                                        <textarea className="uppost-textarea" placeholder="Thu Thanh, hãy cùng chia sẻ nào!" rows="7" value={formCreatePost.content} onChange={(e) => {
+                                            updateField(e, 'content')
+                                        }}></textarea>
                                     </form>
                                 </div>
                                 <div className="border shadow-sm mt-5 p-3 rounded-3 d-flex justify-content-between">
@@ -86,9 +203,10 @@ const UpPost = () => {
                                 </div>
                             </Modal.Body>
                             <Modal.Footer>
-                                <Button className="w-100 button-uppost" onClick={handleClose}>
-                                    Đăng
-                                </Button>
+
+                                <div>
+                                    <button type="submit" className="btn btn-primary" onClick={(e) => {handleSubmit(e); handleClose()}}>Đăng</button>
+                                </div>
                             </Modal.Footer>
                         </div>
                         <div className="col-lg-4">
@@ -107,8 +225,9 @@ const UpPost = () => {
                                     <div className="filter">
                                         <div className="filter-option">
 
-                                            <select className="form-control" aria-label="Default select example" onChange={(e) => {
-
+                                            <select value={formCreatePost.faculty} className="form-control" aria-label="Default select example" onChange={(e) => {
+                                                set_Id_Faculty(e)
+                                                updateField(e, 'faculty')
                                             }}>
                                                 <option selected>Khoa</option>
                                                 {faculty.map(faculty => (
@@ -130,24 +249,24 @@ const UpPost = () => {
                                         </div>
                                         {/*<div className="col-lg-1"></div>*/}
                                         <div className="filter-option">
-                                            <select>
+                                            <select value={formCreatePost.major} className="form-control" aria-label="Default select example" onChange={(e) => {
+                                                updateField(e, 'major')
+                                            }}>
                                                 <option>Ngành</option>
-                                                <option>Máy tính và Khoa học thông tin</option>
-                                            </select>
-                                        </div>
-                                        {/*<div className="col-lg-1"></div>*/}
-                                        <div className="filter-option">
-                                            <select>
-                                                <option>Bộ môn</option>
-                                            </select>
-                                        </div>
-                                        <div className="filter-option">
-                                            <select>
-                                                <option>Câu lạc bộ</option>
+                                                {majors.map((major, idx) => (
+                                                    major.id_department === formCreatePost.faculty &&
+                                                    <option key={idx} value={major.major}>{major.major}</option>
+                                                ))}
 
                                             </select>
                                         </div>
-                                        {/*<div className="col-lg-1"></div>*/}
+                                        {/*<div className="filter-option">*/}
+                                        {/*    <select>*/}
+                                        {/*        <option>Câu lạc bộ</option>*/}
+
+                                        {/*    </select>*/}
+                                        {/*</div>*/}
+                                        {/*/!*<div className="col-lg-1"></div>*!/*/}
                                     </div>
 
                                 </div>

@@ -10,13 +10,13 @@ use  App\Http\Controllers\NotificationController;
 use  App\Http\Controllers\CommentController;
 use  App\Http\Controllers\AccountController;
 use  App\Http\Controllers\ClubController;
-
+use  App\Http\Controllers\MajorController;
 use App\Http\Controllers\LoginController;
-<<<<<<< HEAD
 
-=======
+
+
 use App\Http\Controllers\ChangePasswordController;
->>>>>>> 8aeaa4ed5eb63e139160b20f031127ce2d223526
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -88,3 +88,5 @@ Route::post('/user/login', [LoginController::class, 'onLogin'])->name('user.logi
 
 //Api đổi mật khẩu
 Route::post('/user/changepassword/{id}', [ChangePasswordController::class, 'changepassword'])->name('user.changepassword');
+//Api thao tác với ngành học
+Route::get('/major/getAll', [MajorController::class, 'getAll'])->name('getAll');
