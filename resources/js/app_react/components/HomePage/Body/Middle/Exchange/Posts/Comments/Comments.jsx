@@ -27,7 +27,7 @@ const Comments = ({idPost}) => {
     })
 
     const getDataPost = () => {
-        axios.get("http://127.0.0.1:8000/api/post/getAll")
+        axios.get("http://127.0.0.1:8080/api/post/getAll")
             .then(res => res.data)
             .then(
                 (result) => {
@@ -64,7 +64,7 @@ const Comments = ({idPost}) => {
 
     const getDataUser = () => {
         setIsLoaded(true);
-        axios.get("http://127.0.0.1:8000/api/user/getAll")
+        axios.get("http://127.0.0.1:8080/api/user/getAll")
             .then(res => res.data)
             .then(
                 (result) => {
@@ -84,7 +84,7 @@ const Comments = ({idPost}) => {
 
     const getDataCmt = () => {
         setIsLoaded(true);
-        axios.get("http://127.0.0.1:8000/api/comment/getAll")
+        axios.get("http://127.0.0.1:8080/api/comment/getAll")
             .then(res => res.data)
             .then(
                 (result) => {

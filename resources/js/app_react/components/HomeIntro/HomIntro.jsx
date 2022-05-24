@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignIn } from '@fortawesome/free-solid-svg-icons';
 
@@ -12,7 +13,9 @@ const HomIntro = () => {
                 <div className="container px-5">
                     <div className="collapse navbar-collapse">
                         <ul className="navbar-nav ms-auto">
+                            <Link to="/signin">
                                 <button className="btn btn-color p-2 mb-2"><FontAwesomeIcon icon={faSignIn}/> Sign in</button>
+                            </Link>
                         </ul>
                     </div>
                 </div>

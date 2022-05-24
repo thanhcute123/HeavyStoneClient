@@ -17,22 +17,6 @@ const Body = () => {
             <Left/>
             <Middle/>
             <Right/>
-            {/*<div className="message">*/}
-
-            {/*    <Button className="bg-white button-mess border-white"*/}
-            {/*            onClick={() => setOpen(!open)}*/}
-            {/*            aria-controls="example-collapse-text"*/}
-            {/*            aria-expanded={open}*/}
-            {/*    >*/}
-            {/*        <img className="ms-3" src={logo_message} width="35px"/>*/}
-            {/*    </Button>*/}
-            {/*    <Collapse in={open}>*/}
-            {/*        <div id="example-collapse-text">*/}
-            {/*            a*/}
-            {/*        </div>*/}
-            {/*    </Collapse>*/}
-
-            {/*</div>*/}
         </div>
 
     )

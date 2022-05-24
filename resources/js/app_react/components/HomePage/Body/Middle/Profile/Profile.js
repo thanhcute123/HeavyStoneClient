@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import avt_user from '../../img/Logo/212d12e421963f8a66f95aece1182069.jpg';
+import avt_user from '../../../../../img/Logo/212d12e421963f8a66f95aece1182069.jpg';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faPaperPlane, faUpload} from '@fortawesome/free-solid-svg-icons'
 import Collapse from "react-bootstrap/Collapse";
@@ -7,12 +7,11 @@ import {Card} from "react-bootstrap";
 import './Profile.css';
 
 const Profile = () => {
-
     const [open, setOpen] = useState(false);
     return (
         <div className="container rounded bg-white mt-5 mb-5">
 
-            <div className="row">
+            <div className="row w-100">
                 <div className="panel panel-default col-md-3">
                     <div className="panel-body">
                         <form action="" method="POST" id="formUpAvt"
@@ -25,13 +24,13 @@ const Profile = () => {
                                     <input type="file" className="form-control" id="img_avt" name="img_avt"
                                            onChange="preUpAvt();"/>
                                 </div>
-                                <h6 className="">Choose Picture</h6>
+                                <h6 className="choose-picture">Choose Picture</h6>
 
 
                             </div>
                             <br/>
-                            <div className="form-group ms-5">
-                                <button className="btn btn-facebook pull-left"
+                            <div className="form-group ms-4">
+                                <button className="btn btn-upload pull-left"
                                         type="submit"><FontAwesomeIcon icon={faUpload}/> Upload
                                 </button>
 
@@ -43,9 +42,9 @@ const Profile = () => {
 
 
                 <div className="col-md-5 border-right">
-                    <div className="p-3 py-5">
+                    <div className="py-5">
                         <div className="panel panel-default">
-                            <div className="panel-body border-end pe-5">
+                            <div className="panel-body border-end pe-3">
                                 <form method="POST" onSubmit="return false;" id="formUpdateInfo">
                                     <div className="d-flex justify-content-between align-items-center mb-3">
                                         <h4 className="text-right">Profile Settings</h4>
@@ -72,7 +71,7 @@ const Profile = () => {
                                     </div>
                                     <br/><br/>
                                     <div className="form-group">
-                                        <button type="submit" className="btn btn-primary">Save</button>
+                                        <button type="submit" className="btn btn-upload">Save</button>
                                     </div>
                                     <br/>
                                     <div className="alert alert-danger invisible"/>
@@ -85,7 +84,7 @@ const Profile = () => {
 
 
                 <div className="col-md-4">
-                    <div className="p-3 py-5">
+                    <div className="py-5">
 
                         <div className="col-md-12">
                             <label className="labels">Password</label>
@@ -95,32 +94,31 @@ const Profile = () => {
                         <div  className=" hidden-phone visible-tablet"
                              onClick={() => setOpen(!open)}
                              aria-expanded={open}>
-                            <a className="float-end">Đổi mật khẩu</a>
+                            <a className="float-end style-a">Change Password</a>
 
                         </div>
                         <div style={{minHeight: '150px'}}>
                             <Collapse in={open} dimension="width">
                                 <div id="example-collapse-text">
-                                    <Card body style={{width: '325px'}}>
+                                    <Card body style={{width: '220px'}}>
 
                                         <div id="moreField" className="panel panel-default">
                                             <div className="panel-body">
                                                 <form method="POST" id="formChangePw" onSubmit="return false;">
                                                     <div className="form-group">
-                                                        <label>Mật khẩu cũ</label>
+                                                        <label>Old Password</label>
                                                         <input type="password" className="form-control" id="oldPwChange"/>
                                                     </div>
                                                     <div className="form-group">
-                                                        <label>Mật khẩu mới</label>
+                                                        <label>New Password</label>
                                                         <input type="password" className="form-control" id="newPwChange"/>
                                                     </div>
                                                     <div className="form-group">
-                                                        <label>Nhập lại mật khẩu mới</label>
+                                                        <label>Confirm new password</label>
                                                         <input type="password" className="form-control" id="reNewPwChange"/>
                                                     </div>
                                                     <div className="form-group">
-                                                        <button id="change_pw" type="submit" className="btn btn-primary mt-3">Lưu thay
-                                                            đổi
+                                                        <button id="change_pw" type="submit" className="btn btn-upload mt-3">Save
                                                         </button>
                                                     </div>
 

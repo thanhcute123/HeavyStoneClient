@@ -21,7 +21,7 @@ const Notification = () => {
 
     const getDataNotiApi = () => {
         setIsLoaded(true);
-        axios.get("http://127.0.0.1:8000/api/notification/getAll")
+        axios.get("http://127.0.0.1:8080/api/notification/getAll")
             .then(res => res.data)
             .then(
                 (result) => {

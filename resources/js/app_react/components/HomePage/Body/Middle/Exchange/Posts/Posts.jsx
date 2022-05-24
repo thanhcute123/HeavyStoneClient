@@ -26,7 +26,7 @@ const Posts = () => {
     const [isLoaded, setIsLoaded] = useState(false);
 
     const getDataPost = () => {
-        axios.get("http://127.0.0.1:8000/api/post/getAll")
+        axios.get("http://127.0.0.1:8080/api/post/getAll")
             .then(res => res.data)
             .then(
                 (result) => {
@@ -70,7 +70,7 @@ const Posts = () => {
 
     const getDataUser = () => {
         setIsLoaded(true);
-        axios.get("http://127.0.0.1:8000/api/user/getAll")
+        axios.get("http://127.0.0.1:8080/api/user/getAll")
             .then(res => res.data)
             .then(
                 (result) => {

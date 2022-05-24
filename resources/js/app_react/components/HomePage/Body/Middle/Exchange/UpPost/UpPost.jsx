@@ -19,7 +19,7 @@ const UpPost = () => {
     const [isLoaded, setIsLoaded] = useState(false);
 
     const getDataFaculty = () => {
-        axios.get("http://127.0.0.1:8000/api/department/getAll")
+        axios.get("http://127.0.0.1:8080/api/department/getAll")
             .then(res => res.data)
             .then(
                 (result) => {

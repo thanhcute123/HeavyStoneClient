@@ -10,7 +10,7 @@ const MyClub = () => {
     const [isLoaded, setIsLoaded] = useState(false);
 
     const getDataUser = () => {
-        axios.get("http://127.0.0.1:8000/api/user/getAll")
+        axios.get("http://127.0.0.1:8080/api/user/getAll")
             .then(res => res.data)
             .then(
                 (result) => {
@@ -51,7 +51,7 @@ const MyClub = () => {
 
     const getDataClb = () => {
         setIsLoaded(true);
-        axios.get("http://127.0.0.1:8000/api/club/getAll")
+        axios.get("http://127.0.0.1:8080/api/club/getAll")
             .then(res => res.data)
             .then(
                 (result) => {

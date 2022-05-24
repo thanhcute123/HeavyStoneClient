@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-<<<<<<< HEAD
+
 use  App\Http\Controllers\PostController;
 use  App\Http\Controllers\UserController;
 use  App\Http\Controllers\DepartmentController;
@@ -11,9 +11,8 @@ use  App\Http\Controllers\CommentController;
 use  App\Http\Controllers\AccountController;
 use  App\Http\Controllers\ClubController;
 
-=======
 use App\Http\Controllers\LoginController;
->>>>>>> 4d16af2f3c9797e8df0ac307b657d485468f98eb
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -29,7 +28,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-<<<<<<< HEAD
 //Api thao tác với user
 Route::get('/user/getAll', [UserController::class, 'getAll'])->name('getAll');
 Route::get('/user/{id}', [UserController::class, 'getId'])->name('getId');
@@ -81,7 +79,5 @@ Route::put('/club/update/{id}', [ClubController::class, 'update'])->name('update
 Route::delete('/club/delete/{id}', [ClubController::class, 'delete'])->name('delete');
 Route::get('/club/search/{name}', [ClubController::class, 'search'])->name('search');
 
-=======
 //Api đăng nhập
 Route::post('/user/login', [LoginController::class, 'onLogin'])->name('user.login');
->>>>>>> 4d16af2f3c9797e8df0ac307b657d485468f98eb
