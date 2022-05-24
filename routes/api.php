@@ -12,7 +12,11 @@ use  App\Http\Controllers\AccountController;
 use  App\Http\Controllers\ClubController;
 
 use App\Http\Controllers\LoginController;
+<<<<<<< HEAD
 
+=======
+use App\Http\Controllers\ChangePasswordController;
+>>>>>>> 8aeaa4ed5eb63e139160b20f031127ce2d223526
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -81,3 +85,6 @@ Route::get('/club/search/{name}', [ClubController::class, 'search'])->name('sear
 
 //Api đăng nhập
 Route::post('/user/login', [LoginController::class, 'onLogin'])->name('user.login');
+
+//Api đổi mật khẩu
+Route::post('/user/changepassword/{id}', [ChangePasswordController::class, 'changepassword'])->name('user.changepassword');
