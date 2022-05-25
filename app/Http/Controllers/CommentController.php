@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Api\Comment;
 use Illuminate\Http\Request;
 
+use function response;
+
 class CommentController extends Controller
 {
     /**
