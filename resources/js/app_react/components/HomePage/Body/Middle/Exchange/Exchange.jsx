@@ -7,7 +7,6 @@ const Exchange = () => {
         <div>
             <UpPost />
             <Posts/>
-            <Posts/>
         </div>
     )
 }

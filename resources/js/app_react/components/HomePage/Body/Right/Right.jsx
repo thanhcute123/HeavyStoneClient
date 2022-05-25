@@ -18,8 +18,7 @@ const Right = () => {
                 </div>
                 <div>
                     <Notification/>
-                    <Notification/>
-                    <Notification/>
+
 
                 </div>
                 <hr className="w-100"/>

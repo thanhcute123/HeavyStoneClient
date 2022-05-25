@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignIn } from '@fortawesome/free-solid-svg-icons';
 
@@ -8,11 +9,13 @@ import "../HomeIntro/HomeIntro.css";
 const HomIntro = () => {
     return (
         <div>
-            <nav className="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top nav-style">
+            <nav className="navbar navbar-expand-lg navs navbar-custom fixed-top nav-style">
                 <div className="container px-5">
                     <div className="collapse navbar-collapse">
                         <ul className="navbar-nav ms-auto">
-                            <button className="btn text-white p-2"><FontAwesomeIcon icon={faSignIn}/> Sign in</button>
+                            <Link to="/signin">
+                                <button className="btn btn-color p-2 mb-2"><FontAwesomeIcon icon={faSignIn}/> Sign in</button>
+                            </Link>
                         </ul>
                     </div>
                 </div>
@@ -24,7 +27,7 @@ const HomIntro = () => {
 
                     <h3>Hanoi University of Science, VNU</h3>
                     {/*<button className="btn btn-color p-2">Sign in</button>*/}
-                    <a className="btn btn-color p-2 mb-2" href="#scroll">Learn More</a>
+                    <a className="btn btn-color p-2 mb-2" href="#scroll">More</a>
                 </div>
             </section>
 

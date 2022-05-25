@@ -1052,6 +1052,7 @@
     margin: 5px 0 0 50px;
     color: #444;
 }
+
 .direct-chat-text:after, .direct-chat-text:before {
     position: absolute;
     right: 100%;
@@ -1079,7 +1080,7 @@
     right: auto;
     left: 100%;
     border-right-color: transparent;
-    border-left-color: #d2d6de;
+    border-left-color: #055e73;
 }
 .direct-chat-img {
     border-radius: 50%;
@@ -1187,4 +1188,11 @@
     margin-right: 10px;
     color: #055e73;
     font-size: 20px;
+}
+.error-msg {
+    margin-top: 5px ;
+    font-size: 12px;
+    width: 100%;
+    color: red;
+    font-weight: 500;
 }

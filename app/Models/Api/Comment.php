@@ -10,8 +10,9 @@ class Comment extends Model
     use HasFactory;
     protected $fillable = [
         'id_post',
-        'id_user_parent',
-        'id_user_child',
+        'id_user',
+        'id_cmt_parent',
+        'id_cmt_child',
         'comment'
     ];
 }

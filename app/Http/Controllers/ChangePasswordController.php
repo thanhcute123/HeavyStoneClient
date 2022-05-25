@@ -33,7 +33,7 @@ class ChangePasswordController extends Controller
         $errors = $validator->errors();
 
         if ($validator->fails()) {
-            return Response()->json(array("status" => false, "error" => $errors));
+            return Response()->json(array("status" => false, "error" => $errors),'422');
         } else {
             $user = Account::findOrFail($id)
                 ->where("password", md5($request->password))
@@ -42,7 +42,7 @@ class ChangePasswordController extends Controller
                     "password" => md5($request->password_new)
                 ]);
             if (!$user) {
-                return response()->json(array("status" => false, "data" => "Mật khẩu không đúng!"));
+                return response()->json(array("status" => false, "data" => "Mật khẩu không đúng!"),'422');
             } else {
                 return Response()->json(array("status" => true, "data" => "Đổi mật khẩu thành công!"));
             }
