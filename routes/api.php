@@ -16,10 +16,10 @@ use App\Http\Controllers\LoginController;
 
 
 use App\Http\Controllers\ChangePasswordController;
-<<<<<<< HEAD
-=======
-use App\Http\Controllers\UserController;
->>>>>>> edb805c0665343bcf6494fad88a50d76214f96c5
+
+
+//use App\Http\Controllers\UserController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -92,14 +92,14 @@ Route::post('/user/login', [LoginController::class, 'onLogin'])->name('user.logi
 
 //Api đổi mật khẩu
 Route::post('/user/changepassword/{id}', [ChangePasswordController::class, 'changepassword'])->name('user.changepassword');
-<<<<<<< HEAD
+
 //Api thao tác với ngành học
 Route::get('/major/getAll', [MajorController::class, 'getAll'])->name('getAll');
-=======
+
 
 //Api lấy thông tin user
 Route::get('/user/{id}', [UserController::class, 'getId'])->name('getId');
 
 //Api upload avatar
 Route::post('/user/upLoadAvatar/{id}', [UserController::class, 'upLoadAvatar'])->name('upLoadAvatar');
->>>>>>> edb805c0665343bcf6494fad88a50d76214f96c5
+

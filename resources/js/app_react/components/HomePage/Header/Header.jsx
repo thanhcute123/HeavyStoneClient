@@ -72,7 +72,13 @@ const Header = () => {
                 <div className="header-user d-flex justify-content-center align-items-center">
 
                     <div>
-                        <img src={avt_user} className="rounded-circle" width="45px" height="45px"/>
+                        {
+                        users.map((user, idx) => (
+                        user.id_user === session.id_user && user.avatar !== null && <img src={user.avatar.slice(6)} className="rounded-circle" width="35px"/> ||
+                        user.id_user === session.id_user && user.avatar === null && <img src={avt_user} className="rounded-circle" width="35px" />
+
+                        ))}
+                        {/*<img src={avt_user} className="rounded-circle" width="45px" height="45px"/>*/}
                     </div>
                     <div className="user-name d-flex justify-content-center align-items-center ms-2">
                         {users.map((user, idx) => (

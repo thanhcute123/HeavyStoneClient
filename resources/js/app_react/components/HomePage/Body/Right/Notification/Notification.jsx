@@ -25,7 +25,7 @@ const Notification = () => {
             .then(res => res.data)
             .then(
                 (result) => {
-                    console.log("dataCLb----", result);
+                    // console.log("dataCLb----", result);
                     setIsLoaded(true);
                     setDataNoti(result);
 

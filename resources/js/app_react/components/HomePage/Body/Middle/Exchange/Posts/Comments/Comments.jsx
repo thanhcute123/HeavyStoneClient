@@ -4,12 +4,13 @@ import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import { faReply } from "@fortawesome/free-solid-svg-icons";
 import { comments } from "../../../../../../../Data";
 import avt_user from "../../../../../../../img/Logo/212d12e421963f8a66f95aece1182069.jpg";
-import "./Comments.css";
 import axios from "axios";
+import "./Comments.css";
 
 const Comments = ({idPost}) => {
 
     console.log("idPost----", idPost);
+    let session = JSON.parse(sessionStorage.getItem('user_login'));
 
     const [dataPost, setDataPost] = useState([]);
     const [dataUser, setDataUser] = useState([]);
@@ -18,13 +19,20 @@ const Comments = ({idPost}) => {
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [formComment, setFormComment] = useState({
-        id: "",
+
         id_post: "",
         id_user: "",
         id_cmt_child: "",
-        id_cmt_parent: "0",
+        id_cmt_parent: "",
         comment: ""
     })
+    const [id_comment, setId_comment] = useState()
+
+    const  updateField = (e, key) => {
+        formComment[key] = e.target.value;
+        setFormComment({...formComment});
+        console.log(formComment);
+    }
 
     const getDataPost = () => {
         axios.get("http://127.0.0.1:8080/api/post/getAll")
@@ -102,6 +110,43 @@ const Comments = ({idPost}) => {
             )
     }
 
+    const createComment = () => {
+
+        const formDataComment = formComment;
+        console.log("comment---", formComment);
+
+        axios.post("http://127.0.0.1:8080/api/comment/create",{
+            id_post: `${idPost}`,
+            id_user: `${session.id_user}`,
+            id_cmt_child: "",
+            id_cmt_parent: "0",
+            comment: formDataComment.comment
+        })
+            .then(res => {
+                console.log("ress----", res)
+                const resetModal = {
+                    id_post: "",
+                    id_user: "",
+                    id_cmt_child: "",
+                    id_cmt_parent: "0",
+                    comment: ""
+                }
+
+                setFormComment(resetModal);
+                getDataCmt()
+
+            })
+
+
+
+
+    }
+
+    const handleCreateComment = (e) => {
+      e.preventDefault()
+        createComment()
+    }
+
 
 
     useEffect(() => {
@@ -124,8 +169,10 @@ const Comments = ({idPost}) => {
                     </div>
                     <div className="comment-border border">
                         <form className="d-flex align-items-center">
-                            <textarea className="comment-input" placeholder="Viết bình luận"/>
-                            <button className="comment-button" type="button"><FontAwesomeIcon icon={faPaperPlane}/></button>
+                            <textarea value={formComment.comment} className="comment-input" placeholder="Viết bình luận" onChange={(e) => {
+                                updateField(e, 'comment')
+                            }}/>
+                            <button onClick={(e) => {handleCreateComment(e)}} className="comment-button" type="submit"><FontAwesomeIcon icon={faPaperPlane}/></button>
                         </form>
 
                     </div>
@@ -147,7 +194,7 @@ const Comments = ({idPost}) => {
                                             </div>
                                         ))}
 
-                                        <div className="reply-button mt-4 ms-2"><FontAwesomeIcon icon={faReply}/></div>
+                                        <button className="comment-button" type="submit"><FontAwesomeIcon icon={faReply}/></button>
                                     </div>}
                                 {
                                     dataCmt.map((cmtC, idx) => (
@@ -163,7 +210,7 @@ const Comments = ({idPost}) => {
                                                     <div className="ms-1">{cmtC.comment}</div>
                                                 </div>
                                             ))}
-                                            <div className="reply-button mt-4 ms-2"><FontAwesomeIcon icon={faReply}/></div>
+
                                         </div>
                                     ))
 

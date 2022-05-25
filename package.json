@@ -32,6 +32,8 @@
         "jquery": "^3.6.0",
         "moment": "^2.29.3",
         "react-bootstrap": "^2.4.0",
-        "react-router-dom": "^6.3.0"
+        "react-router-dom": "^6.3.0",
+        "reverse-md5": "^0.0.5",
+        "uuidv4": "^6.2.13"
     }
 }

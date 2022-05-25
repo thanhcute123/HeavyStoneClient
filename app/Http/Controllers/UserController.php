@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-<<<<<<< HEAD
+
 use App\Http\Controllers\Controller;
 use App\Models\Api\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+
 
 class UserController extends Controller
 {
@@ -27,14 +29,9 @@ class UserController extends Controller
      * @param  \App\Models\Api\User $user
      * @return \Illuminate\Http\Response
      */
-=======
-use App\Models\Api\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 
-class UserController extends Controller
-{
->>>>>>> edb805c0665343bcf6494fad88a50d76214f96c5
+
+
     public function getId($id)
     {
         $user = User::findOrFail($id);
@@ -47,7 +44,7 @@ class UserController extends Controller
             return Response()->json("Id không tồn tại");
         }
     }
-<<<<<<< HEAD
+
 
     /**
      * Store a newly created resource in storage.
@@ -63,7 +60,7 @@ class UserController extends Controller
 
     public function search($name)
     {
-        $result = Task::where('id_user', 'LIKE', '%'. $name. '%')->orWhere('username', 'LIKE', '%'. $name. '%')->get();
+        $result = User::where('id_user', 'LIKE', '%'. $name. '%')->orWhere('username', 'LIKE', '%'. $name. '%')->get();
         if(count($result)){
             return Response()->json($result);
         }
@@ -101,7 +98,7 @@ class UserController extends Controller
         ]);
         return response()->json($user);
     }
-=======
+
     public function upLoadAvatar(Request $request, $id)
     {
         try {
@@ -117,11 +114,13 @@ class UserController extends Controller
             } else {
                 $user = User::findOrFail($id);
                 $avatar = $request->avatar;
+
                 if ($avatar && $avatar->isValid()) {
                     $file_name = time().".".$avatar->extension();
                     $avatar->move(public_path('images'), $file_name);
                     $path = "public/images/$file_name";
                     $avatar = $path;
+
                 }
                 $user->update([
                     "avatar" => $avatar
@@ -134,5 +133,5 @@ class UserController extends Controller
             return response()->json(["status" => false, "message" => $e->getMessage(), "data" => []], 500);
         }
     }
->>>>>>> edb805c0665343bcf6494fad88a50d76214f96c5
+
 }

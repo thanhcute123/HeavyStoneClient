@@ -98,10 +98,6 @@ const UpPost = () => {
             )
     }
 
-    const test = () => {
-    }
-    test()
-
     const doInserPort = () => {
         const postData = formCreatePost;
         console.log("postData---", formCreatePost);
