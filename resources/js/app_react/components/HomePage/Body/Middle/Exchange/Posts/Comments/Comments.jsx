@@ -28,6 +28,11 @@ const Comments = ({idPost}) => {
     })
     const [id_comment, setId_comment] = useState()
 
+    const set_id_comment = (type) => {
+        setId_comment(type);
+        console.log("id---", id_comment);
+    }
+
     const  updateField = (e, key) => {
         formComment[key] = e.target.value;
         setFormComment({...formComment});
@@ -114,14 +119,26 @@ const Comments = ({idPost}) => {
 
         const formDataComment = formComment;
         console.log("comment---", formComment);
+        let data = {}
+        if(id_comment == undefined) {
+            data = {
+                id_post: `${idPost}`,
+                id_user: `${session.id_user}`,
+                id_cmt_child: "",
+                id_cmt_parent: "0",
+                comment: formDataComment.comment
+            }
+        }else {
+            data = {
+                id_post: `${idPost}`,
+                id_user: `${session.id_user}`,
+                id_cmt_child: "0",
+                id_cmt_parent: `${id_comment}`,
+                comment: formDataComment.comment
+            }
+        }
 
-        axios.post("http://127.0.0.1:8080/api/comment/create",{
-            id_post: `${idPost}`,
-            id_user: `${session.id_user}`,
-            id_cmt_child: "",
-            id_cmt_parent: "0",
-            comment: formDataComment.comment
-        })
+        axios.post("http://127.0.0.1:8080/api/comment/create",data)
             .then(res => {
                 console.log("ress----", res)
                 const resetModal = {
@@ -165,14 +182,19 @@ const Comments = ({idPost}) => {
             <div className="comments mb-3 h-auto">
                 <div className="d-flex align-items-center ms-3 mt-3">
                     <div>
-                        <img className="rounded-circle" width="45px" src={avt_user}/>
+                        {
+                            dataUser.map((user, idx) => (
+                                user.id_user === session.id_user && user.avatar !== null && <img src={user.avatar.slice(6)}className="rounded-circle" width="35px"/> ||
+                                user.id_user === session.id_user && user.avatar === null && <img src={avt_user} className="rounded-circle" width="35px"/>
+
+                            ))}
                     </div>
                     <div className="comment-border border">
                         <form className="d-flex align-items-center">
                             <textarea value={formComment.comment} className="comment-input" placeholder="Viết bình luận" onChange={(e) => {
                                 updateField(e, 'comment')
                             }}/>
-                            <button onClick={(e) => {handleCreateComment(e)}} className="comment-button" type="submit"><FontAwesomeIcon icon={faPaperPlane}/></button>
+                            <button onClick={(e) => {set_id_comment(undefined); handleCreateComment(e) }} className="comment-button" type="submit"><FontAwesomeIcon icon={faPaperPlane}/></button>
                         </form>
 
                     </div>
@@ -184,7 +206,11 @@ const Comments = ({idPost}) => {
                                 {cmt.id_cmt_parent === 0 &&
                                     <div className="content-comment ms-3 d-flex">
                                         <div>
-                                            <img className="rounded-circle" width="40px" src={avt_user}/>
+                                            {
+                                                dataUser.map((user, idx) => (
+                                                    user.id_user === cmt.id_user && user.avatar !== null && <img src={user.avatar.slice(6)} className="rounded-circle" width="35px"/> ||
+                                                    user.id_user === cmt.id_user && user.avatar === null && <img src={avt_user} className="rounded-circle" width="35px"/>
+                                                ))}
                                         </div>
                                         {dataUser.map((user) => (
                                             user.id_user === cmt.id_user &&
@@ -194,14 +220,18 @@ const Comments = ({idPost}) => {
                                             </div>
                                         ))}
 
-                                        <button className="comment-button" type="submit"><FontAwesomeIcon icon={faReply}/></button>
+                                        <button onClick={() => {set_id_comment(cmt.id)}} className="comment-button" type="submit"><FontAwesomeIcon icon={faReply}/></button>
                                     </div>}
                                 {
                                     dataCmt.map((cmtC, idx) => (
                                         cmtC.id_cmt_child === 0 && cmtC.id_cmt_parent === cmt.id &&
                                         <div className="content-comment ms-5 d-flex">
                                             <div>
-                                                <img className="rounded-circle" width="40px" src={avt_user}/>
+                                                {
+                                                    dataUser.map((user, idx) => (
+                                                        user.id_user === cmtC.id_user && user.avatar !== null && <img src={user.avatar.slice(6)} className="rounded-circle" width="35px"/> ||
+                                                        user.id_user === cmtC.id_user && user.avatar === null && <img src={avt_user} className="rounded-circle" width="35px"/>
+                                                    ))}
                                             </div>
                                             {dataUser.map((user) => (
                                                 user.id_user === cmtC.id_user &&
