@@ -1,9 +1,13 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useContext} from "react";
 import avt_clb from '../../../../../img/clb/247417209_4184310981669695_2295114573500917550_n.png';
 import './MyClub.css';
 import axios from "axios";
+import {PageClb} from "../../../../Store/ContextPageClb";
 
 const MyClub = () => {
+
+    let session = JSON.parse(sessionStorage.getItem('user_login'));
+    const context = useContext(PageClb);
     const [Clubs, setClubs] = useState([]);
     const [dataUser, setDataUser] = useState([]);
     const [error, setError] = useState(null);
@@ -22,7 +26,7 @@ const MyClub = () => {
 
                     for (let i in result) {
                         // console.log(result.data[i])
-                        if(result[i].id_user === 18001198) {
+                        if(result[i].id_user === session.id_user) {
                             console.log("tttttt----", result[i].club);
                             myClub = result[i].club.split(",")
                             console.log("tagsR----",myClub);
@@ -94,7 +98,12 @@ const MyClub = () => {
                                                   <img src={avt_clb} width="32px" className="rounded-3 me-2"/>
                                               </div>
                                            <div>
-                                               <div className="fw-bolder">{c.club_name}</div>
+                                               <div onClick={() => {
+
+                                                   context.page_1();
+                                                   context.set_id_clb(c.club_code)
+
+                                               }}  className="fw-bolder">{c.club_name}</div>
                                            </div>
                                       </div>
                                    ))

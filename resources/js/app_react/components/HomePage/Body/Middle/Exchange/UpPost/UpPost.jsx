@@ -2,10 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Modal, Button } from "react-bootstrap";
 import axios from "axios";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faFileImage, faSearch} from '@fortawesome/free-solid-svg-icons';
-import { faFile } from "@fortawesome/free-solid-svg-icons";
 import { faTags } from "@fortawesome/free-solid-svg-icons";
-import avt_user from "../../../../../../img/Logo/212d12e421963f8a66f95aece1182069.jpg";
 import "./UpPost.css";
 
 const UpPost = () => {
@@ -47,11 +44,10 @@ const UpPost = () => {
             .then(res => res.data)
             .then(
                 (result) => {
-                    console.log("majors----", result);
+
                     setIsLoaded(true);
                     setMajors(result);
 
-                    // console.log("items---", items);
                 },
 
                 (error) => {
@@ -65,11 +61,10 @@ const UpPost = () => {
             .then(res => res.data)
             .then(
                 (result) => {
-                    console.log("faculty----", result);
+
                     setIsLoaded(true);
                     setFaculty(result);
 
-                    // console.log("items---", items);
                 },
 
                 (error) => {
@@ -84,11 +79,10 @@ const UpPost = () => {
             .then(res => res.data)
             .then(
                 (result) => {
-                    console.log("datauser----", result);
+
                     setIsLoaded(true);
                     setUsers(result);
 
-                    // console.log("items---", items);
                 },
 
                 (error) => {
@@ -98,7 +92,7 @@ const UpPost = () => {
             )
     }
 
-    const doInserPort = () => {
+    const doInsertPort = () => {
         const postData = formCreatePost;
         console.log("postData---", formCreatePost);
         let name_faculty = ''
@@ -114,7 +108,6 @@ const UpPost = () => {
             content: formCreatePost.content,
             faculty: name_faculty,
             major: formCreatePost.major
-            // postData
         })
             .then(res => {
                 const resetModal = {
@@ -126,14 +119,14 @@ const UpPost = () => {
                 }
 
                 setFormCreatePort(resetModal);
-                // getDataUserApi()
+
             })
 
     }
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        doInserPort();
+        doInsertPort();
 
 
     }
@@ -171,7 +164,7 @@ const UpPost = () => {
                                     <div key={idx} className="d-flex align-items-center">
 
                                         <div >
-                                            <img className="rounded-circle" width="45px" src={avt_user}/>
+                                            <img src={user.avatar.slice(6)} className="rounded-circle me-2" width="45px"/>
                                         </div>
                                         <div>
                                             {user.username}
@@ -232,18 +225,9 @@ const UpPost = () => {
 
 
                                             </select>
-                                            {/*<select>*/}
-                                            {/*    <option>Khoa</option>*/}
-                                            {/*    {faculty.map((faculty, idx)=>(*/}
-                                            {/*        <option key={idx} value={faculty.name_department}>{faculty.name_departmen}</option>*/}
-                                            {/*    ))}*/}
 
-
-
-
-                                            {/*</select>*/}
                                         </div>
-                                        {/*<div className="col-lg-1"></div>*/}
+
                                         <div className="filter-option">
                                             <select value={formCreatePost.major} className="form-control" aria-label="Default select example" onChange={(e) => {
                                                 updateField(e, 'major')
@@ -256,13 +240,7 @@ const UpPost = () => {
 
                                             </select>
                                         </div>
-                                        {/*<div className="filter-option">*/}
-                                        {/*    <select>*/}
-                                        {/*        <option>Câu lạc bộ</option>*/}
 
-                                        {/*    </select>*/}
-                                        {/*</div>*/}
-                                        {/*/!*<div className="col-lg-1"></div>*!/*/}
                                     </div>
 
                                 </div>
@@ -271,18 +249,18 @@ const UpPost = () => {
                         </div>
 
                     </div>
-                    {/*<Modal.Footer>*/}
-                    {/*    <Button variant="secondary" onClick={handleClose}>*/}
-                    {/*        Đăng*/}
-                    {/*    </Button>*/}
-                    {/*</Modal.Footer>*/}
+
 
                 </Modal>
                 <div className="border shadow-sm mt-5 p-3 rounded-3">
                     <div className="d-flex justify-content-center border-bottom p-3 ">
-                        <div>
-                            <img className="rounded-circle" width="40px" src={avt_user}/>
-                        </div>
+                        {users.map((user, idx) => (
+                            user.id_user === session.id_user &&
+                            <div>
+                                <img src={user.avatar.slice(6)} className="rounded-circle me-2" width="40px"/>
+                            </div>
+                        ))}
+
                         <div className="comment-border rounded-pill">
                             <form>
                                 <input readOnly onClick={handleShow} className="comment-input" type="text" size="85" placeholder="Cùng nhau chia sẻ nào!"/>

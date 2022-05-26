@@ -8,6 +8,8 @@ import Exchange from "./HomePage/Body/Middle/Exchange/Exchange";
 import Documents from "./HomePage/Body/Middle/Documents/Documents";
 import Scholarship from "./HomePage/Body/Middle/Scholarship/Scholarship";
 import Club from "./HomePage/Body/Middle/Club/Club";
+import CombineClub from "./HomePage/Body/Middle/Club/CombineClub/CombineClub";
+import SeparateClub from "./HomePage/Body/Middle/Club/SeparateClub/SeparateClub";
 
 function App( props ){
 
@@ -23,8 +25,8 @@ function App( props ){
                     <Route path="/home" element={<HomePage/>}>
                         <Route path="" element={<Exchange/>}/>
                         <Route path="docs" element={<Documents/>}/>
-                        <Route path="scholarship" element={<Scholarship/>}/>
-                        <Route path="club" element={<Club/>}/>
+                        <Route path="scholarship" element={<Scholarship/>} />
+                        <Route path="club" element={<Club/>} />
                         <Route path="profile" element={<Profile/>}/>
                     </Route>
                 }
