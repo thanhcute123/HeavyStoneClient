@@ -1,3 +1,11 @@
 .card-text {
     text-align: justify;
 }
+
+.style-a {
+    opacity: 1 !important;
+    color: #055e73;
+}
+.w-178 {
+    height: 178px;
+}

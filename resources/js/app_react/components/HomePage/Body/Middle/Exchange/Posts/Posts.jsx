@@ -51,8 +51,10 @@ const Posts = () => {
                             id_user: result[i].id_user,
                             theme: result[i].theme,
                             content: result[i].content,
+                            image: result[i].image,
                             faculty: tags.faculty,
                             major: tags.major,
+                            liked: result[i].liked,
                             created_at: time
                         });
                     }
@@ -176,7 +178,9 @@ const Posts = () => {
                             <div className="d-flex content">
 
                                 <div>
-                                    <img className="rounded-circle me-2" width="38px" src={avt_user}/>
+                                    {
+                                        user.avatar !== null && <img src={user.avatar.slice(6)} className="rounded-circle me-2" width="35px"/> ||
+                                        user.avatar === null && <img src={avt_user} className="rounded-circle" width="35px"/>}
                                 </div>
                                 <div>
                                     <div className="usename-bold">{user.username}</div>
@@ -196,7 +200,8 @@ const Posts = () => {
                         </div>
                         <div className="exchange-main mt-5">
                             <div>
-                                {/*<img className="exchange-image" src={exchange_content}/>*/}
+                                {post.image !== null && <img className="exchange-image" src={post.image.slice(6)}/>}
+
                             </div>
                         </div>
                         <div className="exchange-tim d-flex w-100">
@@ -204,7 +209,7 @@ const Posts = () => {
 
                                 {/*<div><IonIcon id="love" className="love" icon={heartOutline} /></div><div>273</div>*/}
                                 <div className="love loves me-2"><i className="ion-android-favorite-outline"></i>
-                                    <div>273</div>
+                                    <div>{post.liked}</div>
                                 </div>
                             </div>
 
@@ -213,7 +218,7 @@ const Posts = () => {
 
                                 {/*<div><IonIcon className="love" icon={chatbubbleEllipsesOutline} /></div><div>14</div>*/}
                                 <div className="love"><i className="ion-ios-chatbubble-outline"></i>
-                                    <div>14</div>
+                                    {/*<div>14</div>*/}
                                 </div>
                             </div>
                         </div>

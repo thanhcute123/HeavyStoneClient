@@ -43,15 +43,15 @@ const Notification = () => {
         setFormDataNoti(data)
     }
 
-    const str = `p>Thân gửi các bạn sinh viên!</p><p>&nbsp;Thực hiện công văn số 1116/ĐHKHTN-CTSV ngày 29/4/2022 của Trường Đại học Khoa học Tự nhiên về việc nhắc nhở sinh viên thực hiện các quy định trong thời gian nghỉ Lễ 30/4 và 01/5 năm 2022, Khoa Toán - Cơ - Tin học thông báo nhắc nhở sinh viên nghiêm chỉnh thực hiện những nội dung sau:</p><p>1. Sinh viên được nghỉ học từ ngày 30/04/2022 đến hết ngày 03/05/2022 theo công văn số 798/ĐHKHTN-TCCB-HC ngày 05/4/2022.&nbsp;</p><p>2. Nghiêm chỉnh chấp hành các chủ trương, chính sách của Đảng và Nhà nước; không vi phạm pháp luật; không tham gia tụ tập đông người gây rối trật tự công cộng trái với các quy định của pháp luật.&nbsp;</p><p>3. Nghiêm chỉnh chấp hành Luật giao thông, không tham gia tụ tập, cổ vũ cho việc đua xe trái phép; nghiêm túc thực hiện: “Đã uống rượu, bia - không lái xe”; “Không sử dụng điện thoại khi lái xe”; “Đội mũ bảo hiểm đạt chuẩn khi đi mô tô, xe máy, xe đạp điện”; “Thắt dây an toàn khi ngồi trên xe ô tô”; “Mặc áo phao khi đi các phương tiện giao thông đường thủy”; thực hiện nghiêm túc quy định về phòng, chống dịch bệnh Covid-19.</p>`;
+    // const str = `p>Thân gửi các bạn sinh viên!</p><p>&nbsp;Thực hiện công văn số 1116/ĐHKHTN-CTSV ngày 29/4/2022 của Trường Đại học Khoa học Tự nhiên về việc nhắc nhở sinh viên thực hiện các quy định trong thời gian nghỉ Lễ 30/4 và 01/5 năm 2022, Khoa Toán - Cơ - Tin học thông báo nhắc nhở sinh viên nghiêm chỉnh thực hiện những nội dung sau:</p><p>1. Sinh viên được nghỉ học từ ngày 30/04/2022 đến hết ngày 03/05/2022 theo công văn số 798/ĐHKHTN-TCCB-HC ngày 05/4/2022.&nbsp;</p><p>2. Nghiêm chỉnh chấp hành các chủ trương, chính sách của Đảng và Nhà nước; không vi phạm pháp luật; không tham gia tụ tập đông người gây rối trật tự công cộng trái với các quy định của pháp luật.&nbsp;</p><p>3. Nghiêm chỉnh chấp hành Luật giao thông, không tham gia tụ tập, cổ vũ cho việc đua xe trái phép; nghiêm túc thực hiện: “Đã uống rượu, bia - không lái xe”; “Không sử dụng điện thoại khi lái xe”; “Đội mũ bảo hiểm đạt chuẩn khi đi mô tô, xe máy, xe đạp điện”; “Thắt dây an toàn khi ngồi trên xe ô tô”; “Mặc áo phao khi đi các phương tiện giao thông đường thủy”; thực hiện nghiêm túc quy định về phòng, chống dịch bệnh Covid-19.</p>`;
 
     useEffect(() => {
-        const timer = window.setInterval(() => {
+        // const timer = window.setInterval(() => {
             getDataNotiApi();
-        }, 10000);
-        return () => { // Return callback to run on unmount.
-            window.clearInterval(timer);
-        };
+        // }, 1000);
+        // return () => { // Return callback to run on unmount.
+        //     window.clearInterval(timer);
+        // };
     }, [])
 
     if (error) {

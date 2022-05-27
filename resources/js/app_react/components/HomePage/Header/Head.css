@@ -5,6 +5,7 @@
     top: 0;
     background-color: white;
     z-index: 1;
+    box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
 }
 .header-input:focus {
     outline: none;

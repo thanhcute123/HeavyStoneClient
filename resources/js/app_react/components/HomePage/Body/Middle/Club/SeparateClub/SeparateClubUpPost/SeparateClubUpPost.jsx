@@ -18,6 +18,33 @@ const SeparateClubUpPost = () => {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
+    const [formCreatePost, setFormCreatePort] = useState({
+        id_user: '',
+        theme: '',
+        content: '',
+        club: ''
+
+    })
+
+    const [fileAvatar, setAvatar] = useState('');
+    const [preview, setPreview] = useState('');
+
+    const handleChangeImage = (e) => {
+        console.log(e.target.files[0]);
+        const selectedFile = e.target.files[0]
+        setAvatar(selectedFile);
+        console.log(fileAvatar);
+        const filePreview = URL.createObjectURL(selectedFile)
+        setPreview(filePreview);
+    }
+
+
+    const  updateField = (e, key) => {
+        formCreatePost[key] = e.target.value;
+        setFormCreatePort({...formCreatePost});
+        console.log(formCreatePost);
+    }
+
     const getDataUser = () => {
         axios.get("http://127.0.0.1:8080/api/user/getAll")
             .then(res => res.data)
@@ -81,6 +108,51 @@ const SeparateClubUpPost = () => {
     }
 
 
+
+    const doInsertPort = () => {
+        const postData = formCreatePost;
+        console.log("postData---", formCreatePost);
+        const imgAvatar = fileAvatar;
+        let fileExtension = imgAvatar.name;
+        console.log("imgAvatar---", fileExtension);
+        let config = {
+            headers: {
+                'Content-Type': 'form-data',
+            }
+        }
+
+        let data = new FormData();
+        data.append("id_user", session.id_user);
+        data.append("theme", formCreatePost.theme);
+        data.append("content", formCreatePost.content);
+        data.append("club", context.id_clb);
+        data.append("image", fileAvatar, fileExtension);
+        // console.log("nameImg----", data);
+
+        axios.post("http://127.0.0.1:8080/api/post/createPostClub",data, config)
+            .then(res => {
+                const resetModal = {
+                    id_user: '',
+                    theme: '',
+                    content: '',
+                    club: ''
+
+                }
+
+                setFormCreatePort(resetModal);
+
+            })
+
+    }
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        doInsertPort();
+
+
+    }
+
+
     useEffect(() => {
         getDataUser();
         getDataClb();
@@ -111,7 +183,9 @@ const SeparateClubUpPost = () => {
                             <div key={idx} className="d-flex align-items-center">
 
                                 <div >
-                                    <img src={user.avatar.slice(6)} className="rounded-circle me-2" width="35px"/>
+                                    {
+                                        user.avatar !== null && <img src={user.avatar.slice(6)} className="rounded-circle" width="35px"/> ||
+                                        user.avatar === null && <img src={avt_user} className="rounded-circle" width="35px"/>}
                                 </div>
                                 <div>
                                     {user.username}
@@ -127,22 +201,28 @@ const SeparateClubUpPost = () => {
 
                         <div>
                             <form>
-                                <textarea className="uppost-textarea" placeholder="Thu Thanh, hãy cùng chia sẻ nào!" rows="7"></textarea>
+                                <textarea className="uppost-textarea" placeholder="Bài viết thuộc chủ đề nào nhỉ?" rows="1" value={formCreatePost.theme} onChange={(e) => {
+                                    updateField(e, 'theme')
+                                }}></textarea>
+                                <textarea className="uppost-textarea" placeholder="Cùng chia sẻ nào bạn nhé!" rows="7" value={formCreatePost.content} onChange={(e) => {
+                                    updateField(e, 'content')
+                                }}></textarea>
+                                {fileAvatar &&  <img className="exchange-image" src={preview}/> }
                             </form>
                         </div>
                         <div className="border shadow-sm mt-5 p-3 rounded-3 d-flex justify-content-between">
                             <div>Thêm vào bài viết</div>
                             <div className="">
                                 <form>
-                                    <input id="file-input" className="input-file" type="file"/>
+                                    <input id="file-input" className="input-file" type="file" onChange={(e) => {handleChangeImage(e)}}/>
                                 </form>
                             </div>
                         </div>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button className="w-100 button-uppost" onClick={handleClose}>
-                            Đăng
-                        </Button>
+                        <div>
+                            <button type="submit" className="btn btn-primary" onClick={(e) => {handleSubmit(e); setAvatar('');  handleClose()}}>Đăng</button>
+                        </div>
                     </Modal.Footer>
 
 
@@ -152,7 +232,9 @@ const SeparateClubUpPost = () => {
                         {dataUser.map((user, idx) => (
 
                             <div key={idx}>
-                                <img src={user.avatar.slice(6)} className="rounded-circle me-2" width="40px"/>
+                                {
+                                user.avatar !== null && <img src={user.avatar.slice(6)} className="rounded-circle" width="35px"/> ||
+                                user.avatar === null && <img src={avt_user} className="rounded-circle" width="35px"/>}
                              </div>
                             ))}
                         <div className="comment-border rounded-pill">

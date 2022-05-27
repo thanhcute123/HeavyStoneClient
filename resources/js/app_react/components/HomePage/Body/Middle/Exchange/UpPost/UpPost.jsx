@@ -4,6 +4,8 @@ import axios from "axios";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTags } from "@fortawesome/free-solid-svg-icons";
 import "./UpPost.css";
+import avt_user from "../../../../../../img/Logo/212d12e421963f8a66f95aece1182069.jpg";
+import mim from "../../../../../../img/clb/mim.jpg";
 
 const UpPost = () => {
 
@@ -27,6 +29,18 @@ const UpPost = () => {
         major: ''
 
     })
+
+    const [fileAvatar, setAvatar] = useState('');
+    const [preview, setPreview] = useState('');
+
+    const handleChangeImage = (e) => {
+        console.log(e.target.files[0]);
+        const selectedFile = e.target.files[0]
+        setAvatar(selectedFile);
+        console.log(fileAvatar);
+        const filePreview = URL.createObjectURL(selectedFile)
+        setPreview(filePreview);
+    }
 
     const set_Id_Faculty = (e) => {
         setId_Faculty(e.target.value);
@@ -95,6 +109,15 @@ const UpPost = () => {
     const doInsertPort = () => {
         const postData = formCreatePost;
         console.log("postData---", formCreatePost);
+        const imgAvatar = fileAvatar;
+        let fileExtension = imgAvatar.name;
+        console.log("imgAvatar---", fileExtension);
+        let config = {
+            headers: {
+                'Content-Type': 'form-data',
+            }
+        }
+
         let name_faculty = ''
         for (const i in faculty) {
            if(faculty[i].id_department === formCreatePost.faculty) {
@@ -102,20 +125,23 @@ const UpPost = () => {
            }
         }
 
-        axios.post("http://127.0.0.1:8000/api/post/create",{
-            id_user: session.id_user,
-            theme: formCreatePost.theme,
-            content: formCreatePost.content,
-            faculty: name_faculty,
-            major: formCreatePost.major
-        })
+        let data = new FormData();
+        data.append("id_user", session.id_user);
+        data.append("theme", formCreatePost.theme);
+        data.append("content", formCreatePost.content);
+        data.append("faculty", name_faculty);
+        data.append("major", formCreatePost.major);
+        data.append("image", fileAvatar, fileExtension);
+        console.log("nameImg----", data);
+
+        axios.post("http://127.0.0.1:8080/api/post/create",data, config)
             .then(res => {
                 const resetModal = {
                     id_user: '',
                     theme: '',
                     content: '',
                     faculty: '',
-                    major: ''
+                    major: '',
                 }
 
                 setFormCreatePort(resetModal);
@@ -164,7 +190,9 @@ const UpPost = () => {
                                     <div key={idx} className="d-flex align-items-center">
 
                                         <div >
-                                            <img src={user.avatar.slice(6)} className="rounded-circle me-2" width="45px"/>
+                                            {
+                                             user.avatar !== null && <img src={user.avatar.slice(6)} className="rounded-circle" width="35px"/> ||
+                                             user.avatar === null && <img src={avt_user} className="rounded-circle" width="35px"/>}
                                         </div>
                                         <div>
                                             {user.username}
@@ -172,21 +200,23 @@ const UpPost = () => {
                                     </div>
                                 ))}
 
+
                                 <div>
                                     <form>
                                         <textarea className="uppost-textarea" placeholder="Chủ đề bài viết là gì nhỉ?" rows="1" value={formCreatePost.theme} onChange={(e) => {
                                             updateField(e, 'theme')
                                         }}></textarea>
-                                        <textarea className="uppost-textarea" placeholder="Thu Thanh, hãy cùng chia sẻ nào!" rows="7" value={formCreatePost.content} onChange={(e) => {
+                                        <textarea className="uppost-textarea" placeholder="Cùng chia sẻ nào bạn nhé!" rows="7" value={formCreatePost.content} onChange={(e) => {
                                             updateField(e, 'content')
                                         }}></textarea>
+                                        {fileAvatar &&  <img className="exchange-image" src={preview}/> }
                                     </form>
                                 </div>
                                 <div className="border shadow-sm mt-5 p-3 rounded-3 d-flex justify-content-between">
                                     <div>Thêm vào bài viết</div>
                                     <div className="">
                                         <form>
-                                            <input id="file-input" className="input-file" type="file"/>
+                                            <input id="file-input" className="input-file" type="file" onChange={(e) => {handleChangeImage(e)}}/>
                                         </form>
                                     </div>
                                 </div>
@@ -194,7 +224,7 @@ const UpPost = () => {
                             <Modal.Footer>
 
                                 <div>
-                                    <button type="submit" className="btn btn-primary" onClick={(e) => {handleSubmit(e); handleClose()}}>Đăng</button>
+                                    <button type="submit" className="btn btn-primary" onClick={(e) => {handleSubmit(e); setAvatar('');  handleClose()}}>Đăng</button>
                                 </div>
                             </Modal.Footer>
                         </div>
@@ -206,7 +236,7 @@ const UpPost = () => {
                                         <FontAwesomeIcon className="font-icon border-end me-1 p-1" icon={faTags}/>
                                     </div>
                                     <div>
-                                        Bài viết thuộc chủ đề?
+                                        Bài viết thuộc?
                                     </div>
 
                                 </div>
@@ -257,7 +287,9 @@ const UpPost = () => {
                         {users.map((user, idx) => (
                             user.id_user === session.id_user &&
                             <div>
-                                <img src={user.avatar.slice(6)} className="rounded-circle me-2" width="40px"/>
+                                {
+                                    user.avatar !== null && <img src={user.avatar.slice(6)} className="rounded-circle me-2" width="35px"/> ||
+                                    user.avatar === null && <img src={avt_user} className="rounded-circle" width="35px"/>}
                             </div>
                         ))}
 

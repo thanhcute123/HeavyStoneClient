@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import { faReply } from "@fortawesome/free-solid-svg-icons";
@@ -7,9 +7,16 @@ import avt_user from "../../../../../../../img/Logo/212d12e421963f8a66f95aece118
 import axios from "axios";
 import "./Comments.css";
 
+
+
+
 const Comments = ({idPost}) => {
 
+
     console.log("idPost----", idPost);
+
+    // const executeScroll = () => scrollToRef(searchInput)
+
     let session = JSON.parse(sessionStorage.getItem('user_login'));
 
     const [dataPost, setDataPost] = useState([]);
@@ -37,6 +44,12 @@ const Comments = ({idPost}) => {
         formComment[key] = e.target.value;
         setFormComment({...formComment});
         console.log(formComment);
+    }
+
+    const focusInput = () => {
+
+        document.getElementById("cmt-here").focus();
+
     }
 
     const getDataPost = () => {
@@ -171,6 +184,7 @@ const Comments = ({idPost}) => {
         getDataUser();
         getDataCmt()
 
+
     }, [])
 
     if (error) {
@@ -184,14 +198,14 @@ const Comments = ({idPost}) => {
                     <div>
                         {
                             dataUser.map((user, idx) => (
-                                user.id_user === session.id_user && user.avatar !== null && <img src={user.avatar.slice(6)}className="rounded-circle" width="35px"/> ||
+                                user.id_user === session.id_user && user.avatar !== null && <img src={user.avatar.slice(6)}className="rounded-circle me-2 mt-2" width="35px"/> ||
                                 user.id_user === session.id_user && user.avatar === null && <img src={avt_user} className="rounded-circle" width="35px"/>
 
                             ))}
                     </div>
-                    <div className="comment-border border">
+                    <div className="comment-border border rounded-comment">
                         <form className="d-flex align-items-center">
-                            <textarea value={formComment.comment} className="comment-input" placeholder="Viết bình luận" onChange={(e) => {
+                            <textarea value={formComment.comment} className="comment-input" id="cmt-here" placeholder="Viết bình luận" onChange={(e) => {
                                 updateField(e, 'comment')
                             }}/>
                             <button onClick={(e) => {set_id_comment(undefined); handleCreateComment(e) }} className="comment-button" type="submit"><FontAwesomeIcon icon={faPaperPlane}/></button>
@@ -208,7 +222,7 @@ const Comments = ({idPost}) => {
                                         <div>
                                             {
                                                 dataUser.map((user, idx) => (
-                                                    user.id_user === cmt.id_user && user.avatar !== null && <img src={user.avatar.slice(6)} className="rounded-circle" width="35px"/> ||
+                                                    user.id_user === cmt.id_user && user.avatar !== null && <img src={user.avatar.slice(6)} className="rounded-circle me-2 mt-2" width="35px"/> ||
                                                     user.id_user === cmt.id_user && user.avatar === null && <img src={avt_user} className="rounded-circle" width="35px"/>
                                                 ))}
                                         </div>
@@ -220,7 +234,7 @@ const Comments = ({idPost}) => {
                                             </div>
                                         ))}
 
-                                        <button onClick={() => {set_id_comment(cmt.id)}} className="comment-button" type="submit"><FontAwesomeIcon icon={faReply}/></button>
+                                        <button onClick={() => {set_id_comment(cmt.id); focusInput()}}className="comment-button" type="submit"><FontAwesomeIcon icon={faReply}/></button>
                                     </div>}
                                 {
                                     dataCmt.map((cmtC, idx) => (

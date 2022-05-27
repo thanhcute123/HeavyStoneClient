@@ -35,3 +35,7 @@
     margin-left: 10px;
     cursor: pointer;
 }
+.style-a {
+    opacity: 1 !important;
+    color: #055e73;
+}

@@ -12,7 +12,7 @@ use  App\Http\Controllers\AccountController;
 use  App\Http\Controllers\ClubController;
 use  App\Http\Controllers\MajorController;
 use App\Http\Controllers\LoginController;
-
+use App\Http\Controllers\MessageController;
 
 
 use App\Http\Controllers\ChangePasswordController;
@@ -51,7 +51,9 @@ Route::get('/post/{id}', [PostController::class, 'getId'])->name('getId');
 Route::post('/post/create', [PostController::class, 'create'])->name('create');
 Route::put('/post/update/{id}', [PostController::class, 'update'])->name('update');
 Route::delete('/post/delete/{id}', [PostController::class, 'delete'])->name('delete');
-Route::get('/post/search/{name}', [PostController::class, 'search'])->name('search');
+Route::post('/post/search', [PostController::class, 'search'])->name('search');
+Route::post('/post/createPostClub', [PostController::class, 'createPostClub'])->name('createPostClub');
+Route::get('/post/getCountComment', [PostController::class, 'getCountComment'])->name('getCountComment');
 
 //Api thao tác với tài khoản
 Route::get('/account/getAll', [AccountController::class, 'getAll'])->name('getAll');
@@ -99,6 +101,12 @@ Route::get('/major/getAll', [MajorController::class, 'getAll'])->name('getAll');
 
 //Api lấy thông tin user
 Route::get('/user/{id}', [UserController::class, 'getId'])->name('getId');
+
+//Api thao tác với tin nhắn
+Route::get('/message/getId/{id}', [MessageController::class, 'getId'])->name('getId');
+Route::post('/message/create', [MessageController::class, 'create'])->name('create');
+Route::put('/message/update', [MessageController::class, 'update'])->name('update');
+
 
 //Api upload avatar
 Route::post('/user/upLoadAvatar/{id}', [UserController::class, 'upLoadAvatar'])->name('upLoadAvatar');

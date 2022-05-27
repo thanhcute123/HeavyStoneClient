@@ -48,6 +48,7 @@ const SeparateClubPosts = () => {
                             theme: result[i].theme,
                             content: result[i].content,
                             club: tags.club,
+                            image: result[i].image,
                             created_at: time
                         });
                     }
@@ -82,6 +83,8 @@ const SeparateClubPosts = () => {
                 }
             )
     }
+
+
 
     const love = function() {
         // alert("hello");
@@ -150,7 +153,6 @@ const SeparateClubPosts = () => {
     useEffect(() => {
         getDataPost();
         getDataUser();
-        // love()
 
     }, [])
 
@@ -171,7 +173,9 @@ const SeparateClubPosts = () => {
                             <div className="d-flex content">
 
                                 <div>
-                                    <img className="rounded-circle" width="45px" src={avt_user}/>
+                                    {
+                                        user.avatar !== null && <img src={user.avatar.slice(6)} className="rounded-circle me-2" width="35px"/> ||
+                                        user.avatar === null && <img src={avt_user} className="rounded-circle me-2" width="35px"/>}
                                 </div>
                                 <div>
                                     <div className="usename-bold">{user.username}</div>
@@ -190,7 +194,7 @@ const SeparateClubPosts = () => {
                         </div>
                         <div className="exchange-main mt-5">
                             <div>
-                                <img className="exchange-image" src={mim}/>
+                                {post.image !== null && <img className="exchange-image" src={post.image.slice(6)}/>}
                             </div>
                         </div>
                         <div className="exchange-tim d-flex w-100">
@@ -198,7 +202,7 @@ const SeparateClubPosts = () => {
 
                                 {/*<div><IonIcon id="love" className="love" icon={heartOutline} /></div><div>273</div>*/}
                                 <div className="love loves me-2"><i className="ion-android-favorite-outline"></i>
-                                    <div>273</div>
+                                    <div>130</div>
                                 </div>
                             </div>
 
@@ -207,7 +211,7 @@ const SeparateClubPosts = () => {
 
                                 {/*<div><IonIcon className="love" icon={chatbubbleEllipsesOutline} /></div><div>14</div>*/}
                                 <div className="love"><i className="ion-ios-chatbubble-outline"></i>
-                                    <div>273</div>
+                                    <div></div>
                                 </div>
                             </div>
                         </div>

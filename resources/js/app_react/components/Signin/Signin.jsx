@@ -14,11 +14,29 @@ import {Link} from "react-router-dom";
 const Signin = () => {
     const [open, setOpen] = useState(false);
     const [errors, setErrors] = useState([]);
+    const [messages, getMessages] = useState([]);
     let navigate = useNavigate();
     const [formSignin, setFormSignin] = useState({
         email: "",
         password: ""
     });
+
+    const [valueShowForm, setValueShowForm] = useState(0);
+
+    const [formMessages, setFormMessages] = useState({
+        id_user: '',
+        username: '',
+        email: '',
+        message: ''
+    })
+
+
+
+    const  updateFieldFormMessage = (e, key) => {
+        formMessages[key] = e.target.value;
+        setFormMessages({...formMessages});
+        console.log(formMessages);
+    }
 
     const  updateField = (e, key) => {
         formSignin[key] = e.target.value;
@@ -135,64 +153,114 @@ const Signin = () => {
                             {/*terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer*/}
                             {/*labore wes anderson cred nesciunt sapiente ea proident.*/}
                             <div className="w-100">
-
-                                <div className="box box-primary direct-chat direct-chat-primary">
-                                    <div className="box-header with-border">
-                                        <h3 className="box-title"> Chat</h3>
-                                    </div>
-
-                                    <div className="box-body">
-
-                                        <div className="direct-chat-messages">
-
-                                            <div className="direct-chat-msg">
-                                                <div className="direct-chat-info clearfix">
-                                                    <span className="direct-chat-name pull-left">Admin</span>
-                                                    <span
-                                                        className="direct-chat-timestamp pull-right">23 Jan 2:00 pm</span>
-                                                </div>
-
-                                                <img className="direct-chat-img"
-                                                     src="https://bootdey.com/img/Content/user_1.jpg"
-                                                     alt="Message User Image"/>
-                                                <div className="direct-chat-text">
-                                                    Bạn cần chúng tôi hỗ trợ gì nào?
-                                                </div>
-
-                                            </div>
-                                            <div className="direct-chat-msg rights">
-                                                <div className="direct-chat-info clearfix">
-                                                    {/*<span className="direct-chat-name pull-right">Vũ Thu Thanh</span>*/}
-                                                    <span
-                                                        className="direct-chat-timestamp pull-left">23 Jan 2:05 pm</span>
-                                                </div>
-
-                                                <img className="direct-chat-img"
-                                                     src="https://bootdey.com/img/Content/user_2.jpg"
-                                                     alt="Message User Image"/>
-                                                <div className="direct-chat-text client-side-chat">
-                                                    Tôi cần lấy lại mật khẩu
-                                                </div>
-
-                                            </div>
-
-
+                                {valueShowForm === 1 ?
+                                    <div className="box box-primary direct-chat direct-chat-primary">
+                                        <div className="box-header with-border">
+                                            <h3 className="box-title"> Chat</h3>
                                         </div>
 
-                                    </div>
-                                    <div className="box-footer">
+                                        <div className="box-body">
+
+                                            <div className="direct-chat-messages">
+
+                                                <div className="direct-chat-msg">
+                                                    <div className="direct-chat-info clearfix">
+                                                        <span className="direct-chat-name pull-left">Admin</span>
+                                                        <span
+                                                            className="direct-chat-timestamp pull-right">23 Jan 2:00 pm</span>
+                                                    </div>
+
+                                                    <img className="direct-chat-img"
+                                                         src="https://bootdey.com/img/Content/user_1.jpg"
+                                                         alt="Message User Image"/>
+                                                    <div className="direct-chat-text">
+                                                        Bạn cần chúng tôi hỗ trợ gì nào?
+                                                    </div>
+
+                                                </div>
+                                                <div className="direct-chat-msg rights">
+                                                    <div className="direct-chat-info clearfix">
+                                                        {/*<span className="direct-chat-name pull-right">Vũ Thu Thanh</span>*/}
+                                                        <span
+                                                            className="direct-chat-timestamp pull-left">23 Jan 2:05 pm</span>
+                                                    </div>
+
+                                                    <img className="direct-chat-img"
+                                                         src="https://bootdey.com/img/Content/user_2.jpg"
+                                                         alt="Message User Image"/>
+                                                    <div className="direct-chat-text client-side-chat">
+                                                        Tôi cần lấy lại mật khẩu
+                                                    </div>
+
+                                                </div>
+
+
+                                            </div>
+
+                                        </div>
+                                        <div className="box-footer">
 
                                             <div className="comment-border rounded-pill">
                                                 <form className="d-flex align-items-center">
-                                                    <textarea className="comment-input " rows="1" placeholder="Nhập nội dung tin nhắn"/>
+                                                    <textarea value={formMessages.message} className="comment-input " rows="1" placeholder="Nhập nội dung tin nhắn" onChange={(e) => {
+                                                        updateFieldFormMessage(e, 'message')
+                                                    }}/>
                                                     <button className="comment-button" type="button"><FontAwesomeIcon icon={faPaperPlane}/></button>
                                                 </form>
 
                                             </div>
 
+                                        </div>
+
+                                    </div> :
+
+                                    <div className="box box-primary direct-chat direct-chat-primary">
+                                        <div className="box-header with-border">
+                                            <h3 className="box-title">Nhập thông tin của bạn</h3>
+                                        </div>
+
+                                        <div className="box-body">
+
+                                            <div className="direct-chat-messages">
+
+                                                <div className="form-group">
+                                                    <label>Nhập tên của bạn</label>
+                                                    <input value={formMessages.username} type="text" className="form-control title"  onChange={(e) => {
+                                                        updateFieldFormMessage(e, 'username')
+                                                    }}/>
+                                                </div>
+                                                <div className="form-group">
+                                                    <label>Mã sinh viên</label>
+                                                    <input value={formMessages.id_user} type="text" className="form-control title"  onChange={(e) => {
+                                                        updateFieldFormMessage(e, 'id_user')
+                                                    }}/>
+                                                </div>
+                                                <div className="form-group">
+                                                    <label>Email</label>
+                                                    <input value={formMessages.email} type="text" className="form-control title"  onChange={(e) => {
+                                                        updateFieldFormMessage(e, 'email')
+                                                    }}/>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                        <div className="box-footer">
+
+                                            <div className="comment-border rounded-pill">
+                                                <form className="d-flex align-items-center">
+                                                    <button className="comment-button start-chat" type="button" onClick={() => {setValueShowForm(1)}}>Bắt đầu chat</button>
+                                                </form>
+
+                                            </div>
+
+                                        </div>
+
                                     </div>
 
-                                </div>
+                                }
+
+
 
                             </div>
                         </Card>

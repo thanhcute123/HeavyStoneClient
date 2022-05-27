@@ -25,6 +25,12 @@
     border: none;
     padding: 10px;
 }
+.start-chat {
+    /*align-items: center !important;*/
+    font-size: 14px !important;
+    /*margin-right: 20px;*/
+    margin-left: 95px;
+}
 
 #calltrap-btn {
     background-color: #2074a1;
